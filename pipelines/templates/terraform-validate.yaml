@@ -1,0 +1,24 @@
+jobs:
+    - job: TerraformValidate
+      displayName: Terraform Validate
+      continueOnError: false
+      steps:
+        - task: TerraformInstaller@0
+          displayName: Terraform Install
+          inputs:
+            terraformVersion: '${{parameters.terraform_version}}'
+        - task: TerraformTaskV3@3
+          inputs:
+            provider: 'azurerm'
+            command: 'init'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+            backendServiceArm: '${{parameters.backendServiceArm}}'
+            backendAzureRmResourceGroupName: '${{parameters.backendAzureRmResourceGroupName}}'
+            backendAzureRmStorageAccountName: '${{parameters.backendAzureRmStorageAccountName}}'
+            backendAzureRmContainerName: '${{parameters.backendAzureRmContainerName}}'
+            backendAzureRmKey: '${{parameters.backendAzureRmKey}}'
+        - task: TerraformTaskV3@3
+          inputs:
+            provider: 'azurerm'
+            command: 'validate'
+            workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
