@@ -1,0 +1,16 @@
+jobs:
+    - job: TerraformPlan
+      displayName: Terraform Plan
+      steps:
+          - task: TerraformInstaller@0
+            inputs:
+              terraformVersion: '${{parameters.terraform_version}}'
+          - task: TerraformTaskV3@3
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              backendAzureRmResourceGroupName: '${{parameters.backendAzureRmResourceGroupName}}'
+              backendAzureRmStorageAccountName: '${{parameters.backendAzureRmStorageAccountName}}'
+              backendAzureRmContainerName: '{{parameters.backendAzureRmContainerName}}'
+              backendAzureRmKey: '${{parameters.backendAzureRmKey}}'
