@@ -26,8 +26,8 @@ variables:
       value: 'production.tfstate'
     - name: environment
       value: 'production'
-    - name: action
-      value: ${{parameters.Action}}
+    #- name: action
+    #  value: ${{parameters.Action}}
 
 stages:
     - stage: TerraformValidate
