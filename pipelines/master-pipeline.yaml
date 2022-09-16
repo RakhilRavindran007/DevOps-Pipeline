@@ -33,7 +33,7 @@ stages:
       dependsOn: [TerraformValidate]
       condition: succeeded('TerraformValidate')
       jobs:
-        - template: templates/terraform-plan.yaml
+        - template: templates/terraform-plan.yml
           parameters:
                 backendServiceArm: ${{variables.backendServiceArm}}
                 terraform_version: ${{variables.terraform_version}}
