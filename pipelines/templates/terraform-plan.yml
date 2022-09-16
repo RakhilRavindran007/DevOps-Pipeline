@@ -4,9 +4,11 @@ jobs:
       continueOnError: false
       steps:
           - task: TerraformInstaller@0
+            displayName: Terraform Install
             inputs:
               terraformVersion: '${{parameters.terraform_version}}'
           - task: TerraformTaskV3@3
+            displayName: Terraform Init
             inputs:
               provider: 'azurerm'
               command: 'init'
@@ -16,6 +18,7 @@ jobs:
               backendAzureRmContainerName: '{{parameters.backendAzureRmContainerName}}'
               backendAzureRmKey: '${{parameters.backendAzureRmKey}}'
           - task: TerraformTaskV3@3
+            displayName: Terraform Plan
             inputs:
               provider: 'azurerm'
               command: 'plan'
