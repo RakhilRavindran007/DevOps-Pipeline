@@ -13,6 +13,7 @@ jobs:
               provider: 'azurerm'
               command: 'init'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              backendServiceArm: '${{parameters.backendServiceArm}}'
               backendAzureRmResourceGroupName: '${{parameters.backendAzureRmResourceGroupName}}'
               backendAzureRmStorageAccountName: '${{parameters.backendAzureRmStorageAccountName}}'
               backendAzureRmContainerName: '${{parameters.backendAzureRmContainerName}}'
