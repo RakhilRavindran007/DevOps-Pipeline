@@ -1,6 +1,7 @@
 jobs:
     - job: TerraformPlan
       displayName: Terraform Plan
+      continueOnError: false
       steps:
           - task: TerraformInstaller@0
             inputs:
@@ -19,3 +20,5 @@ jobs:
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
+              environmentServiceNameAzureRM: '${{parameters.environmentServiceNameAzureRM}}'
+              #commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
