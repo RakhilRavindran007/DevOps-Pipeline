@@ -12,6 +12,6 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "name" {
-  name = "test-rg"
-  location = "west europe"
+  name = var.rgname
+  location = var.location
 }

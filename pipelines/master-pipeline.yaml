@@ -14,6 +14,8 @@ variables:
       value: 'tfstate'
     - name: backendAzureRmKey
       value: 'production.tfstate'
+    - name: environment
+      value: 'production'
 
 stages:
     - stage: TerraformValidate
@@ -41,6 +43,7 @@ stages:
                 backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
                 backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
                 backendAzureRmKey: ${{variables.backendAzureRmKey}}
+                environment: ${{variables.environment}}
     
     - stage: TerraformApply
       displayName: Terraform Apply
@@ -55,3 +58,4 @@ stages:
                 backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
                 backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
                 backendAzureRmKey: ${{variables.backendAzureRmKey}}
+                environment: ${{variables.environment}}

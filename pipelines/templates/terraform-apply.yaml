@@ -26,7 +26,7 @@ jobs:
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               environmentServiceNameAzureRM: '${{parameters.backendServiceArm}}'
-              #commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
+              commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
           - task: TerraformTaskV3@3
             displayName: Terraform Apply
             inputs:
@@ -34,4 +34,4 @@ jobs:
               command: 'apply'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
               environmentServiceNameAzureRM: '${{parameters.backendServiceArm}}'
-              #commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
+              commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
