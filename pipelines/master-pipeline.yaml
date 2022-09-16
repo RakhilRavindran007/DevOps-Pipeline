@@ -1,5 +1,15 @@
 trigger: none
 
+parameters:
+  - name: Action
+    displayName: Terraform Action
+    type: string
+    default: validate
+    values:
+      - plan
+      - apply
+      - destroy
+
 variables:
     - group: azureterraform-production
     - name: backendServiceArm
@@ -16,10 +26,13 @@ variables:
       value: 'production.tfstate'
     - name: environment
       value: 'production'
+    - name: action
+      value: ${{parameters.Action}}
 
 stages:
     - stage: TerraformValidate
       displayName: Terraform Validate
+      condition: ne('${{parameters.Action}}', 'Destroy')
       jobs:
           - template: templates/terraform-validate.yaml
             parameters:
@@ -33,7 +46,7 @@ stages:
     - stage: TerraformPlan
       displayName: Terraform Plan
       dependsOn: [TerraformValidate]
-      condition: succeeded('TerraformValidate')
+      condition: ne('${{parameters.Action}}', 'Destroy')
       jobs:
         - template: templates/terraform-plan.yml
           parameters:
@@ -47,7 +60,7 @@ stages:
     
     - stage: TerraformApply
       displayName: Terraform Apply
-      condition: succeeded('TerraformPlan')
+      condition: ne('${{parameters.Action}}', 'Destroy')
       dependsOn: [TerraformPlan]
       jobs:
         - template: templates/terraform-apply.yaml
