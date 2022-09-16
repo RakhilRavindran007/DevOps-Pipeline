@@ -6,9 +6,9 @@ parameters:
     type: string
     default: validate
     values:
-      - plan
-      - apply
-      - destroy
+      - Plan
+      - Apply
+      - Destroy
 
 variables:
     - group: azureterraform-production
@@ -64,6 +64,20 @@ stages:
       dependsOn: [TerraformPlan]
       jobs:
         - template: templates/terraform-apply.yaml
+          parameters:
+                backendServiceArm: ${{variables.backendServiceArm}}
+                terraform_version: ${{variables.terraform_version}}
+                backendAzureRmResourceGroupName: ${{variables.backendAzureRmResourceGroupName}}
+                backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
+                backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{variables.backendAzureRmKey}}
+                environment: ${{variables.environment}}
+    
+    - stage: TerraformDestroy
+      displayName: Terraform Destroy
+      condition: contains('${{parameters.Action}}', 'Destroy')
+      jobs:
+        - template: templates/terraform-destroy.yaml
           parameters:
                 backendServiceArm: ${{variables.backendServiceArm}}
                 terraform_version: ${{variables.terraform_version}}
