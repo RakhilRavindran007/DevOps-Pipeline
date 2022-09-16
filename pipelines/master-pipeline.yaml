@@ -1,7 +1,7 @@
 trigger: none
 
 variables:
-    #- group: azureterraform-production
+    - group: azureterraform-production
     - name: backendServiceArm
       value: 'spn-ado-azure-deployment'
     - name: terraform_version
