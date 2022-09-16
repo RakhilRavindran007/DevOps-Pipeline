@@ -20,5 +20,5 @@ jobs:
               provider: 'azurerm'
               command: 'plan'
               workingDirectory: '$(System.DefaultWorkingDirectory)/terraform'
-              environmentServiceNameAzureRM: '${{parameters.environmentServiceNameAzureRM}}'
+              environmentServiceNameAzureRM: '${{parameters.backendServiceArm}}'
               #commandOptions: '-var-file="../${{parameters.environment}}/${{parameters.environment}}.tfvars"'
