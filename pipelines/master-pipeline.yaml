@@ -5,7 +5,7 @@ variables:
     - name: backendServiceArm
       value: 'spn-ado-azure-deployment'
     - name: terraform_version
-      value: '3.23.0'
+      value: '1.2.8'
     - name: backendAzureRmResourceGroupName
       value: 'rg-terraform-dev-we-01'
     - name: backendAzureRmStorageAccountName
