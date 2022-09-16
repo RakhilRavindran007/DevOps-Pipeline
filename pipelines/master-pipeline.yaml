@@ -41,3 +41,17 @@ stages:
                 backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
                 backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
                 backendAzureRmKey: ${{variables.backendAzureRmKey}}
+    
+    - stage: TerraformApply
+      displayName: Terraform Apply
+      condition: succeeded('TerraformPlan')
+      dependsOn: [TerraformPlan]
+      jobs:
+        - template: templates/terraform-apply.yaml
+          parameters:
+                backendServiceArm: ${{variables.backendServiceArm}}
+                terraform_version: ${{variables.terraform_version}}
+                backendAzureRmResourceGroupName: ${{variables.backendAzureRmResourceGroupName}}
+                backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
+                backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{variables.backendAzureRmKey}}
