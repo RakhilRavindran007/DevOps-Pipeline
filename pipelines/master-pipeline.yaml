@@ -1,0 +1,29 @@
+trigger: none
+
+variables:
+    - group: azureterraform-production
+    - name: backendServiceArm
+      value: 'spn-ado-azure-deployment'
+    - name: terraform_version
+      value: '3.19.0'
+    - name: backendAzureRmResourceGroupName
+      value: 'rg-terraform-dev-we-01'
+    - name: backendAzureRmStorageAccountName
+      value: 'stoterraformdevwe432'
+    - name: backendAzureRmContainerName
+      value: 'tfstate'
+    - name: backendAzureRmKey
+      value: 'production.tfstate'
+
+stages:
+    - stage: TerraformValidate
+      displayName: Terraform Validate
+      jobs:
+          - template: templates/terraform-validate.yaml
+            parameters:
+                backendServiceArm: ${{variables.backendServiceArm}}
+                terraform_version: ${{variables.terraform_version}}
+                backendAzureRmResourceGroupName: ${{variables.backendAzureRmResourceGroupName}}
+                backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
+                backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{variables.backendAzureRmKey}}
