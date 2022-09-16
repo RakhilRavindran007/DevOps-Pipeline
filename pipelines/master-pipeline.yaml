@@ -27,3 +27,17 @@ stages:
                 backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
                 backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
                 backendAzureRmKey: ${{variables.backendAzureRmKey}}
+
+    - stage: TerraformPlan
+      displayName: Terraform Plan
+      dependsOn: [TerraformValidate]
+      condition: succeeded('TerraformValidate')
+      jobs:
+        - template: templates/terraform-plan.yaml
+          parameters:
+                backendServiceArm: ${{variables.backendServiceArm}}
+                terraform_version: ${{variables.terraform_version}}
+                backendAzureRmResourceGroupName: ${{variables.backendAzureRmResourceGroupName}}
+                backendAzureRmStorageAccountName: ${{variables.backendAzureRmStorageAccountName}}
+                backendAzureRmContainerName: ${{variables.backendAzureRmContainerName}}
+                backendAzureRmKey: ${{variables.backendAzureRmKey}}
