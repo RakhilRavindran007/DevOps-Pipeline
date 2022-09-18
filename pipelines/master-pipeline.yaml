@@ -46,7 +46,7 @@ stages:
     - stage: TerraformPlan
       displayName: Terraform Plan
       dependsOn: [TerraformValidate]
-      condition: ne('${{parameters.Action}}', 'Destroy')
+      condition: contains('${{parameters.Action}}', 'Plan')
       jobs:
         - template: templates/terraform-plan.yml
           parameters:
@@ -60,7 +60,7 @@ stages:
     
     - stage: TerraformApply
       displayName: Terraform Apply
-      condition: ne('${{parameters.Action}}', 'Destroy')
+      condition: contains('${{parameters.Action}}', 'Apply')
       dependsOn: [TerraformPlan]
       jobs:
         - template: templates/terraform-apply.yaml
